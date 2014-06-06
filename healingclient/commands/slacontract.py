@@ -37,7 +37,7 @@ def format(slacontract=None):
     if slacontract:
         data = (
             slacontract.id,
-            slacontract.tenant_id or '<none>',
+            slacontract.project_id or '<none>',
             slacontract.type,
             slacontract.value or '<none>',
             slacontract.action
