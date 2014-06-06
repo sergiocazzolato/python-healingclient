@@ -40,7 +40,7 @@ class Client(object):
                                   user_id)
 
         if not healing_url:
-            healing_url = "http://localhost:8789/v1"
+            healing_url = "http://localhost:9999/v1"
 
         self.http_client = httpclient.HTTPClient(healing_url,
                                                  auth_token,

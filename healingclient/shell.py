@@ -121,7 +121,7 @@ class HealingShell(App):
             '--os-healing_url',
             action='store',
             dest='healing_url',
-            default=env('OS_HEALING_URL', default='http://localhost:8789/v1'),
+            default=env('OS_HEALING_URL', default='http://localhost:9999/v1'),
             help='Healing API host (Env: OS_HEALING_URL)'
         )
         parser.add_argument(
