@@ -26,6 +26,8 @@ from healingclient.openstack.common import log as logging
 from healingclient.api.client import Client
 
 import healingclient.commands.slacontract
+import healingclient.commands.actions
+import healingclient.commands.handlers
 
 
 from cliff.app import App
@@ -52,6 +54,8 @@ class HealingShell(App):
             'sla-contract-create': healingclient.commands.slacontract.Create,
             'sla-contract-update': healingclient.commands.slacontract.Update,
             'sla-contract-delete': healingclient.commands.slacontract.Delete,
+            'sla-actions-list': healingclient.commands.actions.List,
+            'sla-handlers-list': healingclient.commands.handlers.List,
         }
 
         for k, v in self.commands.items():
