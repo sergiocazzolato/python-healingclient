@@ -31,7 +31,8 @@ def format(slacontract=None):
         'Tenant_ID',
         'Type',
         'Value',
-        'Action'
+        'Action',
+        'Resource_ID'
     )
 
     if slacontract:
@@ -40,7 +41,8 @@ def format(slacontract=None):
             slacontract.project_id or '<none>',
             slacontract.type,
             slacontract.value or '<none>',
-            slacontract.action
+            slacontract.action,
+            slacontract.resource_id or '<none>'
         )
     else:
         data = (tuple('<none>' for _ in range(len(columns))),)
@@ -83,10 +85,11 @@ class Create(ShowCommand):
     def get_parser(self, prog_name):
         parser = super(Create, self).get_parser(prog_name)
         parser.add_argument(
-            'tenant_id',
+            '-tenant_id',
             help='Tenant ID')
         parser.add_argument(
             'type',
+            choices=['HOST_DOWN', 'RESOURCE'],
             help='Contract Type')
         parser.add_argument(
             'value',
@@ -95,7 +98,14 @@ class Create(ShowCommand):
             'action',
             help='Action to take'
         )
-
+        parser.add_argument(
+            '-alarm_data',
+            help="Alarm Data dict. '{\"period\": \"20\"}'")
+        parser.add_argument(
+            '-resource_id',
+            help='Target resouce ( depends on the contract type)'
+        )
+        
         return parser
 
     def take_action(self, parsed_args):
@@ -103,7 +113,9 @@ class Create(ShowCommand):
             .create(parsed_args.tenant_id,
                     parsed_args.type,
                     parsed_args.value,
-                    parsed_args.action)
+                    parsed_args.action,
+                    parsed_args.alarm_data,
+                    parsed_args.resource_id)
 
         return format(slacontract)
 
@@ -132,27 +144,22 @@ class Update(ShowCommand):
             'id',
             help='ID')
         parser.add_argument(
-            'tenant_id',
-            help='Tenant ID')
-        parser.add_argument(
-            'type',
-            help='Contract Type')
-        parser.add_argument(
-            'value',
+            '-value',
             help='Contract value')
         parser.add_argument(
-            'action',
+            '-alarm_data',
+            help="Alarm Data dict. '{\"period\": \"20\"}'")
+        parser.add_argument(
+            '-action',
             help='Action to take'
         )
-
         return parser
 
     def take_action(self, parsed_args):
         slacontract = SLAContractManager(self.app.client)\
             .update(parsed_args.id,
-                    parsed_args.tenant_id,
-                    parsed_args.type,
                     parsed_args.value,
-                    parsed_args.action)
+                    parsed_args.action,
+                    parsed_args.alarm_data)
 
         return format(slacontract)

@@ -25,7 +25,8 @@ class SLAContract(base.Resource):
 class SLAContractManager(base.ResourceManager):
     resource_class = SLAContract
 
-    def create(self, project_id=None, type=None, value=None, action=None):
+    def create(self, project_id=None, type=None, value=None, action=None,
+               alarm_data=None, resource_id=None):
         self._ensure_not_empty(name=type)
         self._ensure_not_empty(name=action)
 
@@ -33,21 +34,20 @@ class SLAContractManager(base.ResourceManager):
             'project_id': project_id,
             'type': type,
             'value': value,
-            'action': action
+            'action': action,
+            'alarm_data': alarm_data,
+            'resource_id': resource_id
         }
         return self._create('/sla/contract', data)
 
-    def update(self, id, project_id=None, type=None, value=None, action=None):
+    def update(self, id, value=None, action=None, alarm_data=None):
         self._ensure_not_empty(name=id)
-        self._ensure_not_empty(name=type)
-        self._ensure_not_empty(name=action)
-
+        
         data = {
             'id': id,
-            'project_id': project_id,
-            'type': type,
             'value': value,
-            'action': action
+            'action': action,
+            'alarm_data': alarm_data
         }
         return self._update('/sla/contract/%s' % id, data)
 
