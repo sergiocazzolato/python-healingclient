@@ -45,7 +45,7 @@ def format(slacontract=None):
             slacontract.resource_id or '<none>'
         )
     else:
-        data = (tuple('<none>' for _ in range(len(columns))),)
+        data = []
 
     return columns, data
 

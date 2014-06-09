@@ -28,6 +28,7 @@ from healingclient.api.client import Client
 import healingclient.commands.slacontract
 import healingclient.commands.actions
 import healingclient.commands.handlers
+import healingclient.commands.tracking
 
 
 from cliff.app import App
@@ -56,6 +57,7 @@ class HealingShell(App):
             'sla-contract-delete': healingclient.commands.slacontract.Delete,
             'sla-actions-list': healingclient.commands.actions.List,
             'sla-handlers-list': healingclient.commands.handlers.List,
+            'sla-tracking-list': healingclient.commands.tracking.List,
         }
 
         for k, v in self.commands.items():
