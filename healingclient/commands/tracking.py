@@ -31,7 +31,6 @@ def format(tracking=None):
         'Time',
         'Alarm ID',
         'data',
-        'Action',
         'Tracking Id'
     )
 
