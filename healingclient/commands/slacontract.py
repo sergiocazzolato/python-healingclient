@@ -89,7 +89,7 @@ class Create(ShowCommand):
             help='Tenant ID')
         parser.add_argument(
             'type',
-            choices=['HOST_DOWN', 'RESOURCE'],
+            choices=['HOST_DOWN', 'RESOURCE', 'CEILOMETER_EXTERNAL_RESOURCE', 'GENERIC_SCRIPT_ALARM'],
             help='Contract Type')
         parser.add_argument(
             'value',
