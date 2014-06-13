@@ -32,16 +32,19 @@ def format(slacontract=None):
         'Type',
         'Value',
         'Action',
+        'Action Options',
         'Resource_ID'
     )
 
     if slacontract:
+        print slacontract
         data = (
             slacontract.id,
             slacontract.project_id or '<none>',
             slacontract.type,
             slacontract.value or '<none>',
             slacontract.action,
+            slacontract.action_options,
             slacontract.resource_id or '<none>'
         )
     else:
@@ -102,6 +105,9 @@ class Create(ShowCommand):
             '-alarm_data',
             help="Alarm Data dict. '{\"period\": \"20\"}'")
         parser.add_argument(
+            '-action_options',
+            help="Action Specific Options dict '{\"period\": \"20\"}'")
+        parser.add_argument(
             '-resource_id',
             help='Target resouce ( depends on the contract type)'
         )
@@ -115,7 +121,8 @@ class Create(ShowCommand):
                     parsed_args.value,
                     parsed_args.action,
                     parsed_args.alarm_data,
-                    parsed_args.resource_id)
+                    parsed_args.resource_id,
+                    parsed_args.action_options)
 
         return format(slacontract)
 
@@ -150,6 +157,9 @@ class Update(ShowCommand):
             '-alarm_data',
             help="Alarm Data dict. '{\"period\": \"20\"}'")
         parser.add_argument(
+            '-action_options',
+            help="Action Options dict. '{\"period\": \"20\"}'")
+        parser.add_argument(
             '-action',
             help='Action to take'
         )
@@ -160,6 +170,7 @@ class Update(ShowCommand):
             .update(parsed_args.id,
                     parsed_args.value,
                     parsed_args.action,
-                    parsed_args.alarm_data)
+                    parsed_args.alarm_data,
+                    parsed_args.action_options)
 
         return format(slacontract)
