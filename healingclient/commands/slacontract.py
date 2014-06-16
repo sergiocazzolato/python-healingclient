@@ -28,6 +28,7 @@ LOG = logging.getLogger(__name__)
 def format(slacontract=None):
     columns = (
         'ID',
+        'Name',
         'Tenant_ID',
         'Type',
         'Value',
@@ -40,6 +41,7 @@ def format(slacontract=None):
         print slacontract
         data = (
             slacontract.id,
+            slacontract.name or '<none>',
             slacontract.project_id or '<none>',
             slacontract.type,
             slacontract.value or '<none>',
@@ -91,6 +93,9 @@ class Create(ShowCommand):
             '-tenant_id',
             help='Tenant ID')
         parser.add_argument(
+            '-name',
+            help='Contract Name')
+        parser.add_argument(
             'type',
             choices=['HOST_DOWN', 'RESOURCE', 'CEILOMETER_EXTERNAL_RESOURCE', 'GENERIC_SCRIPT_ALARM'],
             help='Contract Type')
@@ -122,7 +127,8 @@ class Create(ShowCommand):
                     parsed_args.action,
                     parsed_args.alarm_data,
                     parsed_args.resource_id,
-                    parsed_args.action_options)
+                    parsed_args.action_options,
+                    parsed_args.name)
 
         return format(slacontract)
 
@@ -151,6 +157,9 @@ class Update(ShowCommand):
             'id',
             help='ID')
         parser.add_argument(
+            '-name',
+            help='Contract Name')
+        parser.add_argument(
             '-value',
             help='Contract value')
         parser.add_argument(
@@ -171,6 +180,7 @@ class Update(ShowCommand):
                     parsed_args.value,
                     parsed_args.action,
                     parsed_args.alarm_data,
-                    parsed_args.action_options)
+                    parsed_args.action_options,
+                    parsed_args.name)
 
         return format(slacontract)

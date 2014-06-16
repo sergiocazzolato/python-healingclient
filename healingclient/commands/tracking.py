@@ -30,7 +30,8 @@ def format(tracking=None):
         'ID',
         'Time',
         'Alarm ID',
-        'data'
+        'data',
+        'Contract Names',
     )
 
     if tracking:
@@ -38,7 +39,8 @@ def format(tracking=None):
             tracking.id,
             tracking.time,
             tracking.alarm_id,
-            tracking.data or '<none>'
+            tracking.data or '<none>',
+            tracking.contract_names or '<none>'
         )
     else:
         data = []
