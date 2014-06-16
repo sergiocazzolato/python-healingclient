@@ -29,6 +29,7 @@ import healingclient.commands.slacontract
 import healingclient.commands.actions
 import healingclient.commands.handlers
 import healingclient.commands.tracking
+import healingclient.commands.slastatistics
 
 
 from cliff.app import App
@@ -58,6 +59,7 @@ class HealingShell(App):
             'sla-actions-list': healingclient.commands.actions.List,
             'sla-handlers-list': healingclient.commands.handlers.List,
             'sla-tracking-list': healingclient.commands.tracking.List,
+            'sla-statistics-get': healingclient.commands.slastatistics.Get,
         }
 
         for k, v in self.commands.items():

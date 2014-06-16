@@ -28,7 +28,7 @@ LOG = logging.getLogger(__name__)
 def format(slacontract=None):
     columns = (
         'ID',
-        'Tenant_ID',
+        'Project_ID',
         'Type',
         'Value',
         'Action',
@@ -85,8 +85,8 @@ class Create(ShowCommand):
     def get_parser(self, prog_name):
         parser = super(Create, self).get_parser(prog_name)
         parser.add_argument(
-            '-tenant_id',
-            help='Tenant ID')
+            '-project_id',
+            help='Project ID')
         parser.add_argument(
             'type',
             choices=['HOST_DOWN', 'RESOURCE', 'CEILOMETER_EXTERNAL_RESOURCE', 'GENERIC_SCRIPT_ALARM'],
@@ -110,7 +110,7 @@ class Create(ShowCommand):
 
     def take_action(self, parsed_args):
         slacontract = SLAContractManager(self.app.client)\
-            .create(parsed_args.tenant_id,
+            .create(parsed_args.project_id,
                     parsed_args.type,
                     parsed_args.value,
                     parsed_args.action,
