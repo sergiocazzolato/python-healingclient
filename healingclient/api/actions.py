@@ -35,3 +35,20 @@ class ActionManager(base.ResourceManager):
         return self._list('?'.join(['/sla/actions', 
                                     six.moves.urllib.parse.urlencode(params)]),
                           'actions')
+
+    def create(self, name, target_id, request_id, status, created_at=None,
+               output=None):
+        self._ensure_not_empty(name=name)
+        self._ensure_not_empty(target_id=target_id)
+        self._ensure_not_empty(request_id=request_id)
+        self._ensure_not_empty(status=status)
+
+        data = {
+            'name': name,
+            'target_id': target_id,
+            'request_id': request_id,
+            'created_at': created_at,
+            'status': status,
+            'output': output
+        }
+        self._create('/sla/actions', data)

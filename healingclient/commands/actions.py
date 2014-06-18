@@ -78,3 +78,37 @@ class List(ListCommand):
             return format()
 
 
+class Create(ShowCommand):
+    "Create new action"
+
+    def get_parser(self, prog_name):
+        parser = super(Create, self).get_parser(prog_name)
+        parser.add_argument(
+            '-name',
+            help='Name')
+        parser.add_argument(
+            '-created_at',
+            help='Created At')
+        parser.add_argument(
+            '-status',
+            help='Status')
+        parser.add_argument(
+            '-output',
+            help='Output')
+        parser.add_argument(
+            '-target_id',
+            help='Target ID')
+        parser.add_argument(
+            '-request_id',
+            help='Request ID')
+
+        return parser
+
+    def take_action(self, parsed_args):
+        ActionManager(self.app.client).create(parsed_args.name,
+                                              parsed_args.target_id,
+                                              parsed_args.request_id,
+                                              parsed_args.status,
+                                              parsed_args.created_at,
+                                              parsed_args.output)
+

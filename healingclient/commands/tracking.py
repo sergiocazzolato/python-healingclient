@@ -57,3 +57,27 @@ class List(ListCommand):
             return (format()[0], data)
         else:
             return format()
+
+class Create(ShowCommand):
+    "Create new slacontract"
+
+    def get_parser(self, prog_name):
+        parser = super(Create, self).get_parser(prog_name)
+        parser.add_argument(
+            '-time',
+            help='Time')
+        parser.add_argument(
+            '-alarm_id',
+            help='Alarm ID')
+        parser.add_argument(
+            '-data',
+            help='Data')
+
+        return parser
+
+    def take_action(self, parsed_args):
+        TrackingManager(self.app.client).create(parsed_args.time,
+                                                parsed_args.alarm_id,
+                                                parsed_args.data)
+
+

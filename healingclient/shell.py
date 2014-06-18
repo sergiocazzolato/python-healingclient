@@ -57,8 +57,10 @@ class HealingShell(App):
             'sla-contract-update': healingclient.commands.slacontract.Update,
             'sla-contract-delete': healingclient.commands.slacontract.Delete,
             'sla-actions-list': healingclient.commands.actions.List,
+            'sla-actions-create': healingclient.commands.actions.Create,
             'sla-handlers-list': healingclient.commands.handlers.List,
             'sla-tracking-list': healingclient.commands.tracking.List,
+            'sla-tracking-create': healingclient.commands.tracking.Create,
             'sla-statistics-get': healingclient.commands.slastatistics.Get,
         }
 
