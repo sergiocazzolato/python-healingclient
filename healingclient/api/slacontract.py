@@ -29,14 +29,14 @@ class SLAContractManager(base.ResourceManager):
                alarm_data=None, resource_id=None, action_options=None, name=None):
         self._ensure_not_empty(name=type)
         self._ensure_not_empty(name=action)
-
+        # TODO: change type, is reserved...
         data = {
-            'project_id': project_id,
+            'project_id': project_id or None,
             'type': type,
             'value': value,
             'action': action,
             'alarm_data': alarm_data,
-            'resource_id': resource_id,
+            'resource_id': resource_id or None,
             'action_options': action_options,
             'name': name
         }
