@@ -26,29 +26,37 @@ class SLAContractManager(base.ResourceManager):
     resource_class = SLAContract
 
     def create(self, project_id=None, type=None, value=None, action=None,
-               alarm_data=None, resource_id=None):
+               alarm_data=None, resource_id=None, action_options=None, name=None):
         self._ensure_not_empty(type=type)
         self._ensure_not_empty(action=action)
-
+        # TODO: change type, is reserved...
         data = {
-            'project_id': project_id,
+            'project_id': project_id or None,
             'type': type,
             'value': value,
             'action': action,
             'alarm_data': alarm_data,
-            'resource_id': resource_id
+            'resource_id': resource_id or None,
+            'action_options': action_options,
+            'name': name
         }
         return self._create('/sla/contract', data)
 
-    def update(self, id, value=None, action=None, alarm_data=None):
+    def update(self, id, value=None, action=None, alarm_data=None, action_options=None, name=None):
         self._ensure_not_empty(id=id)
-        
-        data = {
-            'id': id,
-            'value': value,
-            'action': action,
-            'alarm_data': alarm_data
-        }
+        # TODO: check backend is not clering the values when sending them.
+        data = {'id': id}
+        if value:
+            data['value'] = value
+        if action:
+            data['action'] = action
+        if alarm_data:
+            data['alarm_data'] = alarm_data
+        if name:
+            data['name'] = nae
+        if action_options:
+            data['action_options'] = action_options
+            
         return self._update('/sla/contract/%s' % id, data)
 
     def list(self):

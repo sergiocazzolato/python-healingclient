@@ -28,17 +28,19 @@ LOG = logging.getLogger(__name__)
 def format(tracking=None):
     columns = (
         'ID',
-        'Time',
+        'Created At',
         'Alarm ID',
-        'data'
+        'data',
+        'Contract Names',
     )
 
     if tracking:
         data = (
             tracking.id,
-            tracking.time,
+            tracking.created_at,
             tracking.alarm_id,
-            tracking.data or '<none>'
+            tracking.data or '<none>',
+            tracking.contract_names or '<none>'
         )
     else:
         data = []
@@ -64,8 +66,8 @@ class Create(ShowCommand):
     def get_parser(self, prog_name):
         parser = super(Create, self).get_parser(prog_name)
         parser.add_argument(
-            '-time',
-            help='Time')
+            '-created_at',
+            help='Created At')
         parser.add_argument(
             '-alarm_id',
             help='Alarm ID')
@@ -76,7 +78,7 @@ class Create(ShowCommand):
         return parser
 
     def take_action(self, parsed_args):
-        TrackingManager(self.app.client).create(parsed_args.time,
+        TrackingManager(self.app.client).create(parsed_args.created_at,
                                                 parsed_args.alarm_id,
                                                 parsed_args.data)
 

@@ -32,16 +32,19 @@ def format(slacontract=None):
         'Type',
         'Value',
         'Action',
+        'Action Options',
         'Resource_ID'
     )
 
     if slacontract:
         data = (
             slacontract.id,
+            slacontract.name or '<none>',
             slacontract.project_id or '<none>',
             slacontract.type,
             slacontract.value or '<none>',
             slacontract.action,
+            slacontract.action_options,
             slacontract.resource_id or '<none>'
         )
     else:
@@ -88,8 +91,12 @@ class Create(ShowCommand):
             '-project_id',
             help='Project ID')
         parser.add_argument(
+            '-name',
+            help='Contract Name')
+        parser.add_argument(
             'type',
-            choices=['HOST_DOWN', 'RESOURCE', 'CEILOMETER_EXTERNAL_RESOURCE', 'GENERIC_SCRIPT_ALARM'],
+            choices=['HOST_DOWN', 'RESOURCE', 'CEILOMETER_EXTERNAL_RESOURCE', 'GENERIC_SCRIPT_ALARM',
+                     'NOTIFICATION_ALARM'],
             help='Contract Type')
         parser.add_argument(
             'value',
@@ -101,6 +108,9 @@ class Create(ShowCommand):
         parser.add_argument(
             '-alarm_data',
             help="Alarm Data dict. '{\"period\": \"20\"}'")
+        parser.add_argument(
+            '-action_options',
+            help="Action Specific Options dict '{\"period\": \"20\"}'")
         parser.add_argument(
             '-resource_id',
             help='Target resouce ( depends on the contract type)'
@@ -115,7 +125,9 @@ class Create(ShowCommand):
                     parsed_args.value,
                     parsed_args.action,
                     parsed_args.alarm_data,
-                    parsed_args.resource_id)
+                    parsed_args.resource_id,
+                    parsed_args.action_options,
+                    parsed_args.name)
 
         return format(slacontract)
 
@@ -144,11 +156,17 @@ class Update(ShowCommand):
             'id',
             help='ID')
         parser.add_argument(
+            '-name',
+            help='Contract Name')
+        parser.add_argument(
             '-value',
             help='Contract value')
         parser.add_argument(
             '-alarm_data',
             help="Alarm Data dict. '{\"period\": \"20\"}'")
+        parser.add_argument(
+            '-action_options',
+            help="Action Options dict. '{\"period\": \"20\"}'")
         parser.add_argument(
             '-action',
             help='Action to take'
@@ -160,6 +178,8 @@ class Update(ShowCommand):
             .update(parsed_args.id,
                     parsed_args.value,
                     parsed_args.action,
-                    parsed_args.alarm_data)
+                    parsed_args.alarm_data,
+                    parsed_args.action_options,
+                    parsed_args.name)
 
         return format(slacontract)
