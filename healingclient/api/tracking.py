@@ -29,8 +29,8 @@ class TrackingManager(base.ResourceManager):
         return self._list('/sla/tracking', 'failures')
 
     def create(self, time, alarm_id, data=None):
-        self._ensure_not_empty(name=time)
-        self._ensure_not_empty(name=alarm_id)
+        self._ensure_not_empty(time=time)
+        self._ensure_not_empty(alarm_id=alarm_id)
 
         data = {
             'time': time,

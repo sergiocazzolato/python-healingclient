@@ -29,7 +29,7 @@ class SLAStatisticsManager(base.ResourceManager):
 
     def get(self, stat_type, project_id, from_date, to_date,
             resource_id=None):
-        self._ensure_not_empty(name=project_id)
+        self._ensure_not_empty(project_id=project_id)
 
         data = dict()
         data['stat_type'] = stat_type

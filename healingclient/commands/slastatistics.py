@@ -25,6 +25,23 @@ from healingclient.api.slastatistics import SLAStatisticsManager
 LOG = logging.getLogger(__name__)
 
 
+def format(slastatistics=None):
+    columns = (
+        'Type',
+        'Value',
+    )
+
+    if slastatistics:
+        data = (
+            slastatistics.type,
+            slastatistics.value
+        )
+    else:
+        data = []
+
+    return columns, data
+
+
 class Get(ShowCommand):
     "Show availability for a project/resource"
 
@@ -55,4 +72,4 @@ class Get(ShowCommand):
                 parsed_args.to_date,
                 parsed_args.resource_id)
 
-        return 'Availability of s% %' % str(slastatistics.value)
+        return format(slastatistics)
