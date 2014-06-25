@@ -105,10 +105,10 @@ class Create(ShowCommand):
         return parser
 
     def take_action(self, parsed_args):
-        ActionManager(self.app.client).create(parsed_args.name,
-                                              parsed_args.target_id,
-                                              parsed_args.request_id,
-                                              parsed_args.status,
-                                              parsed_args.created_at,
-                                              parsed_args.output)
-
+        action = ActionManager(self.app.client).create(parsed_args.name,
+                                                       parsed_args.target_id,
+                                                       parsed_args.request_id,
+                                                       parsed_args.status,
+                                                       parsed_args.created_at,
+                                                       parsed_args.output)
+        return format(action)

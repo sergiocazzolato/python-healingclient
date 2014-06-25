@@ -39,8 +39,8 @@ def format(tracking=None):
             tracking.id,
             tracking.created_at,
             tracking.alarm_id,
-            tracking.data or '<none>',
-            tracking.contract_names or '<none>'
+            tracking.data or '',
+            tracking.contract_names or ''
         )
     else:
         data = []
@@ -78,8 +78,10 @@ class Create(ShowCommand):
         return parser
 
     def take_action(self, parsed_args):
-        TrackingManager(self.app.client).create(parsed_args.created_at,
-                                                parsed_args.alarm_id,
-                                                parsed_args.data)
+        tracking = TrackingManager(self.app.client).create(parsed_args.
+                                                           created_at,
+                                                        parsed_args.alarm_id,
+                                                        parsed_args.data)
+        return format(tracking)
 
 

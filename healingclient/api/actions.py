@@ -51,4 +51,4 @@ class ActionManager(base.ResourceManager):
             'status': status,
             'output': output
         }
-        self._create('/sla/actions', data)
+        return self._create('/sla/actions', data)

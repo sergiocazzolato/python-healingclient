@@ -37,5 +37,5 @@ class TrackingManager(base.ResourceManager):
             'alarm_id': alarm_id,
             'data': data
         }
-        self._create('/sla/tracking', data)
+        return self._create('/sla/tracking', data)
 
