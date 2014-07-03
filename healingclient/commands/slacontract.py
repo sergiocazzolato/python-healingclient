@@ -95,7 +95,8 @@ class Create(ShowCommand):
             help='Contract Name')
         parser.add_argument(
             'type',
-            choices=['HOST_DOWN', 'RESOURCE', 'CEILOMETER_EXTERNAL_RESOURCE', 'GENERIC_SCRIPT_ALARM',
+            choices=['HOST_DOWN', 'VM_ERROR', 'RESOURCE',
+                     'CEILOMETER_EXTERNAL_RESOURCE', 'GENERIC_SCRIPT_ALARM',
                      'NOTIFICATION_ALARM'],
             help='Contract Type')
         parser.add_argument(
