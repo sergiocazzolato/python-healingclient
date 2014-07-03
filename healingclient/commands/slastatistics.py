@@ -49,6 +49,7 @@ class Get(ShowCommand):
         parser = super(Get, self).get_parser(prog_name)
         parser.add_argument(
             'type',
+            choices=['availability', 'max_unavailable_period'],
             help='Type')
         parser.add_argument(
             '-project_id',
